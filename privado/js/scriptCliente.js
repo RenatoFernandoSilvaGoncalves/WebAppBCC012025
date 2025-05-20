@@ -1,3 +1,6 @@
+
+const urlBase = 'http://localhost:4000/clientes';
+
 const formulario = document.getElementById("formCadCliente");
 let listaDeClientes = [];
 
@@ -84,4 +87,23 @@ function excluirCliente(cpf){
     }
 }
 
-mostrarTabelaClientes();
+function obterDadosClientes(){
+    //enviar uma requisição para a fonte servidora
+    fetch(urlBase, {
+        method:"GET"
+    })
+    .then((resposta)=>{
+        if (resposta.ok){
+            return resposta.json();
+        }
+    })
+    .then((clientes)=>{
+        listaDeClientes=clientes;
+        mostrarTabelaClientes();
+    })
+    .catch((erro)=>{
+        alert("Erro ao tentar recuperar clientes do servidor!");
+    });
+}
+
+obterDadosClientes();
