@@ -60,7 +60,7 @@ function mostrarTabelaClientes(){
         tabela.appendChild(cabecalho);
         for (let i=0; i < listaDeClientes.length; i++){
             const linha = document.createElement('tr');
-            linha.id=listaDeClientes[i].cpf;
+            linha.id=listaDeClientes[i].id;
             linha.innerHTML=`
                 <td>${listaDeClientes[i].cpf}</td>
                 <td>${listaDeClientes[i].nome}</td>
@@ -68,7 +68,7 @@ function mostrarTabelaClientes(){
                 <td>${listaDeClientes[i].cidade}</td>
                 <td>${listaDeClientes[i].uf}</td>
                 <td>${listaDeClientes[i].cep}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].cpf}')"><i class="bi bi-trash"></i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].id}')"><i class="bi bi-trash">Excluir</i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -78,13 +78,30 @@ function mostrarTabelaClientes(){
     }
 }
 
-function excluirCliente(cpf){
-    if(confirm("Deseja realmente excluir o cliente " + cpf + "?")){
-        listaDeClientes = listaDeClientes.filter((cliente) => { 
-            return cliente.cpf !== cpf;
+function excluirCliente(id){
+    if(confirm("Deseja realmente excluir o cliente " + id + "?")){
+
+        fetch(urlBase + "/"+id , {
+            method:"DELETE"
+        }).then((resposta)=>{
+            if(resposta.ok){
+                return resposta.json();
+            }
+        }).then((dados)=>{
+            alert("Cliente excluido com sucesso!");
+
+            listaDeClientes = listaDeClientes.filter((cliente) => { 
+                return cliente.id !== id;
+            });
+            //localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
+            
+            //document.getElementById("id").remove();
+            //nao a sua string, o seu valor
+            document.getElementById(id)?.remove(); //excluir a linha da tabela
+        }).catch((erro)=>{          //^^--faz uma checagem????
+            alert("Não foi possivel excluir o cliente: "+erro);
+
         });
-        localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
-        document.getElementById(cpf).remove(); //excluir a linha da tabela
     }
 }
 
@@ -124,6 +141,7 @@ function cadastrarCliente(cliente){
     })
     .then((dados) =>{
         alert(`Cliente incluído com sucesso! ID:${dados.id}`);
+        listaDeClientes.push(cliente);
         mostrarTabelaClientes();
     })
     .catch((erro)=>{
