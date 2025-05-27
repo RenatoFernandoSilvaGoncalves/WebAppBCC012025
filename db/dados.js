@@ -53,6 +53,15 @@
       "cidade": "Presidente Prudente",
       "uf": "SP",
       "cep": "11666-666"
+    },
+    {
+      "id": "3401",
+      "cpf": "777.777.777-77",
+      "nome": "Teste de cadastro",
+      "telefone": "179777-7777",
+      "cidade": "São José do Rio Preto",
+      "uf": "SP",
+      "cep": "17777-777"
     }
   ],
   "fornecedores": [],
