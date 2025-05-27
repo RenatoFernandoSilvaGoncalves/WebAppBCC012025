@@ -35,24 +35,6 @@
       "cidade": "Três Lagoas",
       "uf": "MS",
       "cep": "21035-070"
-    },
-    {
-      "id": "6b06",
-      "cpf": "555.555.555-55",
-      "nome": "Teste inclusão",
-      "telefone": "(18)9555-5555",
-      "cidade": "Maringá",
-      "uf": "PR",
-      "cep": "29013-020"
-    },
-    {
-      "id": "d3c2",
-      "cpf": "666.666.666-66",
-      "nome": "Teste Daniel",
-      "telefone": "186666-6666",
-      "cidade": "Presidente Prudente",
-      "uf": "SP",
-      "cep": "11666-666"
     }
   ],
   "fornecedores": [],

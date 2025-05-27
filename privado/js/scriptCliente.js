@@ -59,7 +59,7 @@ function mostrarTabelaClientes(){
         tabela.appendChild(cabecalho);
         for (let i=0; i < listaDeClientes.length; i++){
             const linha = document.createElement('tr');
-            linha.id=listaDeClientes[i].cpf;
+            linha.id=listaDeClientes[i].id;
             linha.innerHTML=`
                 <td>${listaDeClientes[i].cpf}</td>
                 <td>${listaDeClientes[i].nome}</td>
@@ -67,7 +67,7 @@ function mostrarTabelaClientes(){
                 <td>${listaDeClientes[i].cidade}</td>
                 <td>${listaDeClientes[i].uf}</td>
                 <td>${listaDeClientes[i].cep}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].id}')"><i class="bi bi-trash"></i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].id}')"><i class="bi bi-trash"></i>Excluir</button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -91,7 +91,7 @@ function excluirCliente(id){
                 return cliente.id !== id;
             });
             //localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
-            document.getElementById(id).remove(); //excluir a linha da tabela
+            document.getElementById(id)?.remove(); //excluir a linha da tabela
         }).catch((erro) => {
             alert("Não foi possível excluir o cliente: " + erro);
         });
